@@ -3,720 +3,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel.IO · Your Perfect Stay Awaits</title>
-  <style>
-    /* ---------- CSS Variables & Reset ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary: #b8860b;
-      --primary-light: #d4a843;
-      --dark: #1e1e1e;
-      --warm-bg: #fdf6ec;
-      --card-bg: #ffffff;
-      --text: #2c2c2c;
-      --text-light: #5a5a5a;
-      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      --radius: 16px;
-      --transition: 0.3s ease;
-      --font: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--warm-bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* ---------- Navigation ---------- */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(30, 30, 30, 0.92);
-      backdrop-filter: blur(8px);
-      padding: 0.8rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--primary-light);
-      letter-spacing: 1px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: #f0f0f0;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color var(--transition);
-    }
-
-    .nav-links a:hover {
-      color: var(--primary-light);
-    }
-
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 28px;
-      height: 3px;
-      background: #f0f0f0;
-      border-radius: 4px;
-      transition: var(--transition);
-    }
-
-    /* ---------- Hero ---------- */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%),
-                  url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80');
-      background-blend-mode: overlay;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      color: white;
-    }
-
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 300;
-      letter-spacing: 4px;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-
-    .hero .tagline {
-      font-size: 1.6rem;
-      font-weight: 300;
-      letter-spacing: 2px;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 1rem 3rem;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background var(--transition), transform 0.2s;
-      box-shadow: 0 8px 20px rgba(184, 134, 11, 0.3);
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-light);
-      transform: translateY(-3px);
-    }
-
-    /* ---------- Sections common ---------- */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      font-size: 2.4rem;
-      font-weight: 300;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: var(--dark);
-      letter-spacing: 1px;
-    }
-
-    .section-title span {
-      border-bottom: 3px solid var(--primary);
-      padding-bottom: 6px;
-    }
-
-    /* ---------- Rooms ---------- */
-    .room-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .room-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-
-    .room-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-    }
-
-    .room-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .room-info {
-      padding: 1.5rem;
-    }
-
-    .room-info h3 {
-      font-size: 1.6rem;
-      font-weight: 500;
-      margin-bottom: 0.4rem;
-    }
-
-    .room-info .price {
-      font-size: 1.3rem;
-      color: var(--primary);
-      font-weight: 600;
-      margin: 0.6rem 0;
-    }
-
-    .room-info p {
-      color: var(--text-light);
-      margin-bottom: 1.2rem;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      padding: 0.5rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all var(--transition);
-    }
-
-    .btn-secondary:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    /* ---------- Booking Form ---------- */
-    .booking-form {
-      background: var(--card-bg);
-      padding: 2.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      max-width: 700px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .form-group {
-      flex: 1 1 200px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group label {
-      font-weight: 500;
-      margin-bottom: 0.3rem;
-      color: var(--dark);
-    }
-
-    .form-group input,
-    .form-group select {
-      padding: 0.8rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: #fafafa;
-      transition: border var(--transition);
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .btn-check {
-      background: var(--dark);
-      color: white;
-      padding: 0.9rem 2rem;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background var(--transition);
-      align-self: center;
-      margin-top: 0.5rem;
-    }
-
-    .btn-check:hover {
-      background: #3a3a3a;
-    }
-
-    #confirmationMsg {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 500;
-      color: #2e7d32;
-      min-height: 2rem;
-    }
-
-    /* ---------- Gallery ---------- */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: var(--radius);
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-    }
-
-    .gallery-grid img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
-    }
-
-    /* ---------- Contact ---------- */
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .contact-card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      flex: 1 1 240px;
-      text-align: center;
-    }
-
-    .contact-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: var(--dark);
-    }
-
-    .contact-card p {
-      color: var(--text-light);
-    }
-
-    /* ---------- Footer ---------- */
-    footer {
-      background: var(--dark);
-      color: #ccc;
-      text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
-    }
-
-    footer p {
-      font-size: 0.95rem;
-    }
-
-    /* ========== RESPONSIVE DESIGN — FINAL MOBILE POLISH ========== */
-    @media (max-width: 768px) {
-      /* Navigation */
-      nav {
-        padding: 0.7rem 1.2rem;
-      }
-
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(30, 30, 30, 0.97);
-        backdrop-filter: blur(8px);
-        padding: 1rem 0;
-        gap: 0.8rem;
-        text-align: center;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-links a {
-        font-size: 1.1rem;
-        padding: 0.5rem 0;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      /* Hero */
-      .hero h1 {
-        font-size: 2.6rem;
-        letter-spacing: 2px;
-      }
-
-      .hero .tagline {
-        font-size: 1.2rem;
-        letter-spacing: 1px;
-      }
-
-      .btn-primary {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-      }
-
-      /* Sections */
-      section {
-        padding: 3rem 1.2rem;
-      }
-
-      .section-title {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-      }
-
-      /* Room grid */
-      .room-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .room-card img {
-        height: 200px;
-      }
-
-      .room-info h3 {
-        font-size: 1.4rem;
-      }
-
-      .room-info .price {
-        font-size: 1.2rem;
-      }
-
-      /* Booking form */
-      .booking-form {
-        padding: 1.5rem;
-      }
-
-      .form-row {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-
-      .form-group {
-        flex: 1 1 100%;
-      }
-
-      .btn-check {
-        width: 100%;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-      }
-
-      /* Gallery */
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
-      }
-
-      .gallery-grid img {
-        height: 150px;
-      }
-
-      /* Contact */
-      .contact-info {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .contact-card {
-        flex: 1 1 100%;
-        max-width: 360px;
-      }
-
-      /* Footer */
-      footer {
-        padding: 1.5rem 1rem;
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero .tagline {
-        font-size: 1rem;
-      }
-
-      .section-title {
-        font-size: 1.5rem;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid img {
-        height: 200px;
-      }
-
-      .room-card img {
-        height: 180px;
-      }
-
-      .booking-form {
-        padding: 1.2rem;
-      }
-    }
-  </style>
+  <title>XROGA AI — Supercharge Your Workflow</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="logo">XROGA AI</div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-logo">Hotel.IO</div>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#rooms">Rooms</a></li>
-      <li><a href="#booking">Book</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <h1>Hotel.IO</h1>
-    <p class="tagline">Your Perfect Stay Awaits</p>
-    <a href="#booking" class="btn-primary">Book Your Stay</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Supercharge Your Workflow with AI</h1>
+      <p class="subhead">Automate tasks, generate insights, and scale smarter — all with one intelligent platform.</p>
+      <div class="cta-group">
+        <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+        <a href="#contact" class="btn btn-secondary">Book Demo</a>
+      </div>
+    </div>
   </section>
 
-  <!-- Rooms -->
-  <section id="rooms">
-    <h2 class="section-title"><span>Our Rooms</span></h2>
-    <div class="room-grid">
-      <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80" alt="Deluxe Room">
-        <div class="room-info">
-          <h3>Deluxe Room</h3>
-          <p class="price">$199 / night</p>
-          <p>Spacious room with city view, king bed, and premium amenities.</p>
-          <a href="#booking" class="btn-secondary">Book Now</a>
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Why Teams Love XROGA AI</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>Smart Automation</h3>
+          <p>Automate repetitive tasks with AI-driven workflows that learn and adapt to your business.</p>
         </div>
-      </div>
-      <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&q=80" alt="Suite">
-        <div class="room-info">
-          <h3>Executive Suite</h3>
-          <p class="price">$349 / night</p>
-          <p>Luxury suite with separate living area, balcony, and VIP service.</p>
-          <a href="#booking" class="btn-secondary">Book Now</a>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Real-time Analytics</h3>
+          <p>Get instant insights with dashboards that update as your data changes — no delays.</p>
         </div>
-      </div>
-      <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Family Room">
-        <div class="room-info">
-          <h3>Family Room</h3>
-          <p class="price">$259 / night</p>
-          <p>Comfortable room for four, with two queen beds and kid-friendly setup.</p>
-          <a href="#booking" class="btn-secondary">Book Now</a>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Seamless Integrations</h3>
+          <p>Connect with 200+ tools you already use — Slack, Salesforce, Notion, and more.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>24/7 AI Support</h3>
+          <p>Get answers anytime with our intelligent support bot — no waiting, no tickets.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Booking -->
-  <section id="booking">
-    <h2 class="section-title"><span>Book Your Stay</span></h2>
-    <form class="booking-form" id="bookingForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="checkin">Check-in</label>
-          <input type="date" id="checkin" required>
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2>Simple, Transparent Pricing</h2>
+      <div class="billing-toggle">
+        <span class="toggle-label active" id="monthlyLabel">Monthly</span>
+        <label class="switch">
+          <input type="checkbox" id="billingToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" id="annualLabel">Annual <span class="save-badge">Save 20%</span></span>
+      </div>
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="price">$<span id="starterPrice">29</span><span class="period">/mo</span></div>
+          <ul>
+            <li>Basic AI tools</li>
+            <li>5 projects</li>
+            <li>Email support</li>
+            <li>1 GB storage</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Get Started</a>
         </div>
-        <div class="form-group">
-          <label for="checkout">Check-out</label>
-          <input type="date" id="checkout" required>
+        <!-- Pro (Most Popular) -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <h3>Pro</h3>
+          <div class="price">$<span id="proPrice">79</span><span class="period">/mo</span></div>
+          <ul>
+            <li>Advanced AI tools</li>
+            <li>Unlimited projects</li>
+            <li>Priority support</li>
+            <li>10 GB storage</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+        <!-- Enterprise -->
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Full AI suite</li>
+            <li>Unlimited everything</li>
+            <li>Dedicated account manager</li>
+            <li>SLA guarantee</li>
+            <li>On-premise option</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">Contact Sales</a>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="guests">Guests</label>
-          <select id="guests">
-            <option value="1">1 Guest</option>
-            <option value="2" selected>2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="roomType">Room Type</label>
-          <select id="roomType">
-            <option value="deluxe">Deluxe Room</option>
-            <option value="suite">Executive Suite</option>
-            <option value="family">Family Room</option>
-          </select>
-        </div>
-      </div>
-      <button type="submit" class="btn-check">Check Availability</button>
-      <div id="confirmationMsg"></div>
-    </form>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery">
-    <h2 class="section-title"><span>Gallery</span></h2>
-    <div class="gallery-grid">
-      <img src="https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=400&q=80" alt="Hotel lobby">
-      <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80" alt="Pool">
-      <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80" alt="Restaurant">
-      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80" alt="Spa">
-      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80" alt="Gym">
-      <img src="https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f?w=400&q=80" alt="Rooftop bar">
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2 class="section-title"><span>Contact Us</span></h2>
-    <div class="contact-info">
-      <div class="contact-card">
-        <h3>📍 Address</h3>
-        <p>123 Luxury Lane<br>Beverly Hills, CA 90210</p>
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2>Trusted by Industry Leaders</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p class="quote">"XROGA AI cut our reporting time by 80%. It's like having a data analyst on every team."</p>
+          <div class="author">
+            <div class="avatar" style="background: #6c5ce7;">S</div>
+            <div>
+              <strong>Sarah Chen</strong>
+              <span>CEO, DataFlow Inc.</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="quote">"The automation features alone saved us 40 hours a week. Absolutely game-changing."</p>
+          <div class="author">
+            <div class="avatar" style="background: #00b894;">M</div>
+            <div>
+              <strong>Marcus Rivera</strong>
+              <span>CTO, CloudSync</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="quote">"We switched from three tools to just XROGA AI. Simpler, faster, and more powerful."</p>
+          <div class="author">
+            <div class="avatar" style="background: #fdcb6e;">A</div>
+            <div>
+              <strong>Aisha Patel</strong>
+              <span>VP Product, NexGen</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="contact-card">
-        <h3>📞 Phone</h3>
-        <p>+1 (555) 123-4567</p>
-      </div>
-      <div class="contact-card">
-        <h3>✉️ Email</h3>
-        <p>hello@hotel.io</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Ready to Transform Your Business?</h2>
+      <p class="contact-sub">Get started today or book a personalized demo with our team.</p>
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Email Address" required>
+          <input type="text" placeholder="Company Name">
+          <textarea rows="4" placeholder="Tell us about your needs..."></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+        <div class="demo-cta">
+          <p style="font-size: 1.2rem; font-weight: 600;">Prefer a live walkthrough?</p>
+          <p style="color: var(--text-light);">See XROGA AI in action with a 30-minute demo tailored to your use case.</p>
+          <a href="#" class="btn btn-secondary">Book a Live Demo</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Hotel.IO. All rights reserved. | Your Perfect Stay Awaits</p>
+  <footer class="footer">
+    <p>&copy; 2025 XROGA AI. All rights reserved.</p>
+    <!-- Absorbing the multiverse of data to emit the singularity of truth. -->
   </footer>
 
-  <script>
-    // Mobile nav toggle
-    const hamburger = document.getElementById('hamburgerBtn');
-    const navLinks = document.getElementById('navLinks');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-
-    // Close nav on link click (mobile)
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-      });
-    });
-
-    // Booking form validation
-    const bookingForm = document.getElementById('bookingForm');
-    const confirmationMsg = document.getElementById('confirmationMsg');
-
-    bookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const checkin = document.getElementById('checkin').value;
-      const checkout = document.getElementById('checkout').value;
-      const guests = document.getElementById('guests').value;
-      const roomType = document.getElementById('roomType').value;
-
-      if (!checkin || !checkout) {
-        confirmationMsg.style.color = '#c62828';
-        confirmationMsg.textContent = 'Please select both check-in and check-out dates.';
-        return;
-      }
-
-      if (new Date(checkout) <= new Date(checkin)) {
-        confirmationMsg.style.color = '#c62828';
-        confirmationMsg.textContent = 'Check-out date must be after check-in date.';
-        return;
-      }
-
-      const roomNames = {
-        deluxe: 'Deluxe Room',
-        suite: 'Executive Suite',
-        family: 'Family Room'
-      };
-
-      confirmationMsg.style.color = '#2e7d32';
-      confirmationMsg.textContent = `✅ Great choice! We've received your request for a ${roomNames[roomType]} (${guests} guest${guests > 1 ? 's' : ''}) from ${checkin} to ${checkout}. We'll confirm availability shortly.`;
-    });
-  </script>
-  <!-- Absorbing the multiverse of data to emit the singularity of truth. -->
+  <script src="script.js"></script>
 </body>
 </html>
