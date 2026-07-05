@@ -313,12 +313,11 @@
 
     .gallery-grid img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: var(--radius);
+      transition: transform var(--transition), box-shadow var(--transition);
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .gallery-grid img:hover {
@@ -326,117 +325,32 @@
       box-shadow: 0 12px 28px rgba(0,0,0,0.15);
     }
 
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      padding: 2rem;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    }
-
-    .lightbox .close-lightbox {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 3rem;
-      color: white;
-      cursor: pointer;
-      font-weight: 300;
-      transition: 0.2s;
-    }
-
-    .lightbox .close-lightbox:hover {
-      color: var(--primary-light);
-    }
-
     /* ---------- Contact ---------- */
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    .contact-form {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.8rem 1rem;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: inherit;
-      background: #fafafa;
-    }
-
-    .contact-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .contact-form button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.9rem;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-
-    .contact-form button:hover {
-      background: var(--primary-light);
-    }
-
     .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-card {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      flex: 1 1 240px;
+      text-align: center;
     }
 
-    .contact-info p {
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-    }
-
-    .contact-info strong {
+    .contact-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
       color: var(--dark);
     }
 
-    .map-placeholder {
-      margin-top: 1.5rem;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .map-placeholder iframe {
-      width: 100%;
-      height: 220px;
-      border: 0;
-      display: block;
+    .contact-card p {
+      color: var(--text-light);
     }
 
     /* ---------- Footer ---------- */
@@ -445,25 +359,32 @@
       color: #ccc;
       text-align: center;
       padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    footer p {
       font-size: 0.95rem;
     }
 
-    /* ---------- Responsive ---------- */
+    /* ========== RESPONSIVE DESIGN — FINAL MOBILE POLISH ========== */
     @media (max-width: 768px) {
+      /* Navigation */
       nav {
-        padding: 0.8rem 1.2rem;
+        padding: 0.7rem 1.2rem;
       }
 
       .nav-links {
         display: none;
         flex-direction: column;
-        background: rgba(30,30,30,0.98);
         position: absolute;
-        top: 60px;
+        top: 100%;
         left: 0;
         width: 100%;
-        padding: 1.5rem 2rem;
-        gap: 1.2rem;
+        background: rgba(30, 30, 30, 0.97);
+        backdrop-filter: blur(8px);
+        padding: 1rem 0;
+        gap: 0.8rem;
+        text-align: center;
         box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       }
 
@@ -471,40 +392,105 @@
         display: flex;
       }
 
+      .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+      }
+
       .hamburger {
         display: flex;
       }
 
+      /* Hero */
       .hero h1 {
         font-size: 2.6rem;
+        letter-spacing: 2px;
       }
 
       .hero .tagline {
         font-size: 1.2rem;
+        letter-spacing: 1px;
       }
 
+      .btn-primary {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+
+      /* Sections */
       section {
         padding: 3rem 1.2rem;
       }
 
       .section-title {
         font-size: 1.8rem;
+        margin-bottom: 2rem;
       }
 
-      .contact-wrapper {
+      /* Room grid */
+      .room-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .room-card img {
+        height: 200px;
+      }
+
+      .room-info h3 {
+        font-size: 1.4rem;
+      }
+
+      .room-info .price {
+        font-size: 1.2rem;
+      }
+
+      /* Booking form */
+      .booking-form {
+        padding: 1.5rem;
       }
 
       .form-row {
         flex-direction: column;
+        gap: 0.8rem;
       }
 
+      .form-group {
+        flex: 1 1 100%;
+      }
+
+      .btn-check {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      /* Gallery */
       .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
       }
 
       .gallery-grid img {
-        height: 160px;
+        height: 150px;
+      }
+
+      /* Contact */
+      .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .contact-card {
+        flex: 1 1 100%;
+        max-width: 360px;
+      }
+
+      /* Footer */
+      footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -513,12 +499,27 @@
         font-size: 2rem;
       }
 
-      .btn-primary {
-        padding: 0.8rem 2rem;
+      .hero .tagline {
         font-size: 1rem;
       }
 
-      .room-grid {
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .gallery-grid {
         grid-template-columns: 1fr;
+      }
+
+      .gallery-grid img {
+        height: 200px;
+      }
+
+      .room-card img {
+        height: 180px;
+      }
+
+      .booking-form {
+        padding: 1.2rem;
       }
     }

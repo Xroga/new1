@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Horizon Hotel · Your Perfect Stay Awaits</title>
+  <title>Hotel.IO · Your Perfect Stay Awaits</title>
   <style>
     /* ---------- CSS Variables & Reset ---------- */
     * {
@@ -320,12 +320,11 @@
 
     .gallery-grid img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: var(--radius);
+      transition: transform var(--transition), box-shadow var(--transition);
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .gallery-grid img:hover {
@@ -333,117 +332,32 @@
       box-shadow: 0 12px 28px rgba(0,0,0,0.15);
     }
 
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      padding: 2rem;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    }
-
-    .lightbox .close-lightbox {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 3rem;
-      color: white;
-      cursor: pointer;
-      font-weight: 300;
-      transition: 0.2s;
-    }
-
-    .lightbox .close-lightbox:hover {
-      color: var(--primary-light);
-    }
-
     /* ---------- Contact ---------- */
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    .contact-form {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.8rem 1rem;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: inherit;
-      background: #fafafa;
-    }
-
-    .contact-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .contact-form button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.9rem;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-
-    .contact-form button:hover {
-      background: var(--primary-light);
-    }
-
     .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-card {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      flex: 1 1 240px;
+      text-align: center;
     }
 
-    .contact-info p {
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-    }
-
-    .contact-info strong {
+    .contact-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
       color: var(--dark);
     }
 
-    .map-placeholder {
-      margin-top: 1.5rem;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .map-placeholder iframe {
-      width: 100%;
-      height: 220px;
-      border: 0;
-      display: block;
+    .contact-card p {
+      color: var(--text-light);
     }
 
     /* ---------- Footer ---------- */
@@ -452,25 +366,32 @@
       color: #ccc;
       text-align: center;
       padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    footer p {
       font-size: 0.95rem;
     }
 
-    /* ---------- Responsive ---------- */
+    /* ========== RESPONSIVE DESIGN — FINAL MOBILE POLISH ========== */
     @media (max-width: 768px) {
+      /* Navigation */
       nav {
-        padding: 0.8rem 1.2rem;
+        padding: 0.7rem 1.2rem;
       }
 
       .nav-links {
         display: none;
         flex-direction: column;
-        background: rgba(30,30,30,0.98);
         position: absolute;
-        top: 60px;
+        top: 100%;
         left: 0;
         width: 100%;
-        padding: 1.5rem 2rem;
-        gap: 1.2rem;
+        background: rgba(30, 30, 30, 0.97);
+        backdrop-filter: blur(8px);
+        padding: 1rem 0;
+        gap: 0.8rem;
+        text-align: center;
         box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       }
 
@@ -478,40 +399,105 @@
         display: flex;
       }
 
+      .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+      }
+
       .hamburger {
         display: flex;
       }
 
+      /* Hero */
       .hero h1 {
         font-size: 2.6rem;
+        letter-spacing: 2px;
       }
 
       .hero .tagline {
         font-size: 1.2rem;
+        letter-spacing: 1px;
       }
 
+      .btn-primary {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+
+      /* Sections */
       section {
         padding: 3rem 1.2rem;
       }
 
       .section-title {
         font-size: 1.8rem;
+        margin-bottom: 2rem;
       }
 
-      .contact-wrapper {
+      /* Room grid */
+      .room-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .room-card img {
+        height: 200px;
+      }
+
+      .room-info h3 {
+        font-size: 1.4rem;
+      }
+
+      .room-info .price {
+        font-size: 1.2rem;
+      }
+
+      /* Booking form */
+      .booking-form {
+        padding: 1.5rem;
       }
 
       .form-row {
         flex-direction: column;
+        gap: 0.8rem;
       }
 
+      .form-group {
+        flex: 1 1 100%;
+      }
+
+      .btn-check {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      /* Gallery */
       .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
       }
 
       .gallery-grid img {
-        height: 160px;
+        height: 150px;
+      }
+
+      /* Contact */
+      .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .contact-card {
+        flex: 1 1 100%;
+        max-width: 360px;
+      }
+
+      /* Footer */
+      footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -520,13 +506,28 @@
         font-size: 2rem;
       }
 
-      .btn-primary {
-        padding: 0.8rem 2rem;
+      .hero .tagline {
         font-size: 1rem;
       }
 
-      .room-grid {
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .gallery-grid {
         grid-template-columns: 1fr;
+      }
+
+      .gallery-grid img {
+        height: 200px;
+      }
+
+      .room-card img {
+        height: 180px;
+      }
+
+      .booking-form {
+        padding: 1.2rem;
       }
     }
   </style>
@@ -535,54 +536,57 @@
 
   <!-- Navigation -->
   <nav>
-    <div class="nav-logo">Grand Horizon</div>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-      <span></span><span></span><span></span>
+    <div class="nav-logo">Hotel.IO</div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#home">Home</a></li>
       <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#booking">Book</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
-  <section class="hero" id="home">
-    <h1>Grand Horizon</h1>
+  <section id="home" class="hero">
+    <h1>Hotel.IO</h1>
     <p class="tagline">Your Perfect Stay Awaits</p>
-    <a href="#booking" class="btn-primary">Book Now</a>
+    <a href="#booking" class="btn-primary">Book Your Stay</a>
   </section>
 
   <!-- Rooms -->
   <section id="rooms">
-    <h2 class="section-title"><span>Rooms &amp; Rates</span></h2>
+    <h2 class="section-title"><span>Our Rooms</span></h2>
     <div class="room-grid">
       <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80" alt="Standard room" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=80" alt="Deluxe Room">
         <div class="room-info">
-          <h3>Standard</h3>
-          <p>Comfortable room with city view, queen bed, and modern amenities.</p>
-          <div class="price">$120 / night</div>
-          <a href="#" class="btn-secondary">View Details</a>
+          <h3>Deluxe Room</h3>
+          <p class="price">$199 / night</p>
+          <p>Spacious room with city view, king bed, and premium amenities.</p>
+          <a href="#booking" class="btn-secondary">Book Now</a>
         </div>
       </div>
       <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&q=80" alt="Deluxe room" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&q=80" alt="Suite">
         <div class="room-info">
-          <h3>Deluxe</h3>
-          <p>Spacious with king bed, sitting area, and premium bath amenities.</p>
-          <div class="price">$190 / night</div>
-          <a href="#" class="btn-secondary">View Details</a>
+          <h3>Executive Suite</h3>
+          <p class="price">$349 / night</p>
+          <p>Luxury suite with separate living area, balcony, and VIP service.</p>
+          <a href="#booking" class="btn-secondary">Book Now</a>
         </div>
       </div>
       <div class="room-card">
-        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Suite" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Family Room">
         <div class="room-info">
-          <h3>Suite</h3>
-          <p>Panoramic views, separate living room, jacuzzi, and butler service.</p>
-          <div class="price">$320 / night</div>
-          <a href="#" class="btn-secondary">View Details</a>
+          <h3>Family Room</h3>
+          <p class="price">$259 / night</p>
+          <p>Comfortable room for four, with two queen beds and kid-friendly setup.</p>
+          <a href="#booking" class="btn-secondary">Book Now</a>
         </div>
       </div>
     </div>
@@ -590,8 +594,8 @@
 
   <!-- Booking -->
   <section id="booking">
-    <h2 class="section-title"><span>Book Now</span></h2>
-    <div class="booking-form">
+    <h2 class="section-title"><span>Book Your Stay</span></h2>
+    <form class="booking-form" id="bookingForm">
       <div class="form-row">
         <div class="form-group">
           <label for="checkin">Check-in</label>
@@ -601,78 +605,70 @@
           <label for="checkout">Check-out</label>
           <input type="date" id="checkout" required>
         </div>
+      </div>
+      <div class="form-row">
         <div class="form-group">
           <label for="guests">Guests</label>
           <select id="guests">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
           </select>
         </div>
         <div class="form-group">
           <label for="roomType">Room Type</label>
           <select id="roomType">
-            <option value="standard">Standard</option>
-            <option value="deluxe">Deluxe</option>
-            <option value="suite">Suite</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="suite">Executive Suite</option>
+            <option value="family">Family Room</option>
           </select>
         </div>
       </div>
-      <button class="btn-check" id="checkAvailability">Check Availability</button>
+      <button type="submit" class="btn-check">Check Availability</button>
       <div id="confirmationMsg"></div>
-    </div>
+    </form>
   </section>
 
   <!-- Gallery -->
   <section id="gallery">
     <h2 class="section-title"><span>Gallery</span></h2>
     <div class="gallery-grid">
-      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80" alt="Hotel exterior" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80" alt="Lobby" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" alt="Room" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80" alt="Pool" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Restaurant" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Sunset view" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=400&q=80" alt="Hotel lobby">
+      <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80" alt="Pool">
+      <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80" alt="Restaurant">
+      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80" alt="Spa">
+      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80" alt="Gym">
+      <img src="https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f?w=400&q=80" alt="Rooftop bar">
     </div>
   </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="close-lightbox" id="closeLightbox">&times;</span>
-    <img id="lightboxImg" src="" alt="Enlarged view">
-  </div>
 
   <!-- Contact -->
   <section id="contact">
     <h2 class="section-title"><span>Contact Us</span></h2>
-    <div class="contact-wrapper">
-      <div class="contact-form">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <input type="tel" placeholder="Phone Number">
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
+    <div class="contact-info">
+      <div class="contact-card">
+        <h3>📍 Address</h3>
+        <p>123 Luxury Lane<br>Beverly Hills, CA 90210</p>
       </div>
-      <div class="contact-info">
-        <p><strong>Grand Horizon Hotel</strong></p>
-        <p>123 Ocean Drive, Suite 100<br>Miami Beach, FL 33139</p>
-        <p>📞 +1 (305) 555-0199</p>
-        <p>✉️ stay@grandhorizon.com</p>
-        <div class="map-placeholder">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28768.293615345!2d-80.1418!3d25.7826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b0a1a2b3c4d5%3A0x6e7f8a9b0c1d2e3f!2sMiami+Beach%2C+FL!5e0!3m2!1sen!2sus!4v1680000000000" allowfullscreen loading="lazy"></iframe>
-        </div>
+      <div class="contact-card">
+        <h3>📞 Phone</h3>
+        <p>+1 (555) 123-4567</p>
+      </div>
+      <div class="contact-card">
+        <h3>✉️ Email</h3>
+        <p>hello@hotel.io</p>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Grand Horizon Hotel. All rights reserved.</p>
+    <p>&copy; 2025 Hotel.IO. All rights reserved. | Your Perfect Stay Awaits</p>
   </footer>
 
   <script>
-    // ---------- Hamburger Menu ----------
+    // Mobile nav toggle
     const hamburger = document.getElementById('hamburgerBtn');
     const navLinks = document.getElementById('navLinks');
 
@@ -680,76 +676,45 @@
       navLinks.classList.toggle('active');
     });
 
-    // Close menu on link click (mobile)
+    // Close nav on link click (mobile)
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
       });
     });
 
-    // ---------- Lightbox ----------
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeLightbox = document.getElementById('closeLightbox');
-
-    document.querySelectorAll('.gallery-grid img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src.replace('w=400', 'w=1200');
-      });
-    });
-
-    closeLightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.style.display = 'none';
-      }
-    });
-
-    // ---------- Booking Form ----------
-    const checkBtn = document.getElementById('checkAvailability');
+    // Booking form validation
+    const bookingForm = document.getElementById('bookingForm');
     const confirmationMsg = document.getElementById('confirmationMsg');
 
-    checkBtn.addEventListener('click', () => {
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
       const checkin = document.getElementById('checkin').value;
       const checkout = document.getElementById('checkout').value;
       const guests = document.getElementById('guests').value;
       const roomType = document.getElementById('roomType').value;
 
       if (!checkin || !checkout) {
-        confirmationMsg.textContent = 'Please select both check-in and check-out dates.';
         confirmationMsg.style.color = '#c62828';
+        confirmationMsg.textContent = 'Please select both check-in and check-out dates.';
         return;
       }
 
       if (new Date(checkout) <= new Date(checkin)) {
-        confirmationMsg.textContent = 'Check-out must be after check-in.';
         confirmationMsg.style.color = '#c62828';
+        confirmationMsg.textContent = 'Check-out date must be after check-in date.';
         return;
       }
 
-      const roomNames = { standard: 'Standard', deluxe: 'Deluxe', suite: 'Suite' };
-      confirmationMsg.textContent = `Great choice! A ${roomNames[roomType]} room for ${guests} guest(s) from ${checkin} to ${checkout} is available. We'll contact you shortly.`;
+      const roomNames = {
+        deluxe: 'Deluxe Room',
+        suite: 'Executive Suite',
+        family: 'Family Room'
+      };
+
       confirmationMsg.style.color = '#2e7d32';
-    });
-
-    // ---------- Contact Form ----------
-    document.querySelector('.contact-form button').addEventListener('click', (e) => {
-      e.preventDefault();
-      const name = document.querySelector('.contact-form input[type="text"]').value.trim();
-      const email = document.querySelector('.contact-form input[type="email"]').value.trim();
-      const message = document.querySelector('.contact-form textarea').value.trim();
-
-      if (!name || !email || !message) {
-        alert('Please fill in your name, email, and message.');
-        return;
-      }
-
-      alert('Thank you for reaching out! We will get back to you within 24 hours.');
-      document.querySelector('.contact-form').reset();
+      confirmationMsg.textContent = `✅ Great choice! We've received your request for a ${roomNames[roomType]} (${guests} guest${guests > 1 ? 's' : ''}) from ${checkin} to ${checkout}. We'll confirm availability shortly.`;
     });
   </script>
   <!-- Absorbing the multiverse of data to emit the singularity of truth. -->
